@@ -17,8 +17,40 @@
         </div>
     </div>
 
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script>
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <script type="text/javascript">
+    $(document).ready(function(){
+       var curIdx = 0,
+           nextIdx = 0;
+       $banner =  $('.banner').find('ul > li');
+       $btnNext = $('.banner').find('button');
+
+        $banner.eq(curIdx+1).hide();
+
+        $btnNext.on('click', function(){
+           nextIdx++;
+           if(nextIdx > 1){
+                nextIdx = 0;
+           }
+           $banner.eq(nextIdx).show();
+           $banner.eq(nextIdx).css({
+                'left': 600
+           })
+           $banner.eq(curIdx).animate({
+            left: "-600"
+            }, 400, function(){
+                $(this).hide();
+            });
+
+           $banner.eq(nextIdx).animate({
+            left: 0
+            }, 400, function(){
+                curIdx = nextIdx;
+            });
+       });
+       
+     });
+
         /**
         0. 기능 테스트
             * li(배너 아이템)을 나란히 위치시키고,
